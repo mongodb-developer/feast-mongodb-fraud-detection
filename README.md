@@ -7,6 +7,17 @@ A hands-on example pipeline that combines **Django** + **django-mongodb-backend*
 - A simple z-score model (`training/train_model.py`) is trained on historical features pulled from Feast.
 - Features are materialized into MongoDB via `feast materialize`, and a Django view (`transactions/views.py`) scores transactions in real time by looking up each user's latest materialized features.
 
+# .env file
+
+```
+# Django
+# Generate via shell with: python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+DJANGO_SECRET_KEY=your-secret-key-here
+
+# MongoDB
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>
+MONGODB_DB_NAME=fraud_detection
+```
 ## Quickstart
 
 ```bash
