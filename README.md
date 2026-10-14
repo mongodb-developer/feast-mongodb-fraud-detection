@@ -11,7 +11,7 @@ A hands-on example pipeline that combines **Django** + **django-mongodb-backend*
 
 ```
 # Django
-# Generate via shell with: python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+# To generate your secret key via shell with: python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 DJANGO_SECRET_KEY=your-secret-key-here
 
 # MongoDB
