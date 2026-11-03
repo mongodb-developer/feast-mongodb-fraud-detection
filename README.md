@@ -37,12 +37,6 @@ MONGODB_URI='mongodb+srv://<username>:<password>@<cluster-url>'
 DB_NAME='fraud_detection'
 ```
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
 ### Load `.env` into shell
 Django will read the .env file but `Feast` reads the environment variables.
 
