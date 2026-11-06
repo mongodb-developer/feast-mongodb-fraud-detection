@@ -20,8 +20,9 @@ df = pd.DataFrame({
     "event_timestamp": pd.Timestamp("2026-07-01", tz="UTC") + pd.to_timedelta(random_generator.integers(0, 30 * 24 * 60, N), unit="m"),
 }).sort_values("event_timestamp").reset_index(drop=True)
 
-# Add a small percentage of fraudulent transactions
-fraud_indices = df.sample(frac=FRAUD_RATE, random_state=42).index
+# Choose a fraud rows from each user's most recent transactions
+latest_per_user = df.groupby("user_id").tail(1)
+fraud_indices = latest_per_user.sample(n=max(1, round(N * FRAUD_RATE)), random_state=42).index
 df["is_fraudulent"] = False
 df.loc[fraud_indices, "is_fraudulent"] = True
 df.loc[fraud_indices, "amount"] *= random_generator.uniform(5, 10, len(fraud_indices))   # Inflate the amount for fraudulent transactions

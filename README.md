@@ -79,7 +79,24 @@ curl http://127.0.0.1:8000/score/2/
   "amount": 28.079999923706055,
   "category": "entertainment",
   "location": "London",
-  "z_score": -0.476,
+  "z_score": -0.506,
   "is_potentially_fraudulent": false
+}
+```
+
+User 6's latest transaction is the labelled fraud in the seeded data, so it gets flagged:
+
+```bash
+curl http://127.0.0.1:8000/score/6/
+```
+
+```json
+{
+  "user_id": 6,
+  "amount": 143.04425048828125,
+  "category": "utilities",
+  "location": "London",
+  "z_score": 4.297,
+  "is_potentially_fraudulent": true
 }
 ```

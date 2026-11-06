@@ -25,6 +25,7 @@ class Command(BaseCommand):
                 category=row["category"],
                 location=row["location"],
                 timestamp=row["event_timestamp"],
+                is_fraudulent=bool(row["is_fraudulent"])
             )
             for row in df.to_dict("records")
         ]
