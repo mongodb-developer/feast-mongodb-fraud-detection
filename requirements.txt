@@ -1,5 +1,5 @@
 django-mongodb-backend==6.1.0
-python-dotenv==1.1.1
+python-dotenv==1.2.4
 feast==0.67.0
 pymongo==4.19.0
 pandas==2.3.3
