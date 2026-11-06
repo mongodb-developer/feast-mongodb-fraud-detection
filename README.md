@@ -4,13 +4,13 @@ A hands-on example pipeline that combines **Django** + **django-mongodb-backend*
 
 - Transactions are stored in MongoDB through the Django ORM (`transactions` app).
 - Feast defines and manages `transaction_features` (`amount`, `category`, `location`), using a local Parquet file as the offline store and **MongoDB as the online store**.
-- A simple z-score model (`training/train_model.py`) is trained on historical features pulled from Feast.
+- A z-score model (`training/train_model.py`) is trained on historical features pulled from Feast.
 - Features are materialized into MongoDB via `feast materialize`, and a Django view (`transactions/views.py`) scores transactions in real time by looking up each user's latest materialized features.
 
 ## Requirements
 
 - Python 3.12+
-- A MongoDB Atlas cluster
+- A MongoDB Atlas cluster (or a local Atlas deployment)
 
 ## Quickstart
 
@@ -23,6 +23,7 @@ pip install -r requirements.txt
 ```
 
 ### Create a .env file
+
 Generate a secret key with: 
 
 ```bash
@@ -38,11 +39,13 @@ DB_NAME='fraud_detection'
 ```
 
 ### Load `.env` into shell
+
 Django will read the .env file but `Feast` reads the environment variables.
 
 ```bash
 set -a; source .env; set +a
 ```
+
 ### Run the pipeline
 
 ```bash
@@ -57,12 +60,14 @@ feast materialize 2020-01-01T00:00:00 2026-09-01T00:00:00
 cd ../..
 
 # Writes training/model_params.json, which the scoring view reads.
-cd training && python train_model.py && cd ..
+python training/train_model.py
 
 python manage.py runserver
 ```
 
 ### Request a fraud score:
+
+In a second terminal:
 
 ```bash
 curl http://127.0.0.1:8000/score/2/
